@@ -1,0 +1,508 @@
+:root {
+    --fondo-1: #4f9bd6;
+    --fondo-2: #a7d4f0;
+    --fondo-3: #dff0fb;
+    --vidrio: rgba(255, 255, 255, 0.35);
+    --vidrio-borde: rgba(255, 255, 255, 0.6);
+    --vidrio-oscuro: rgba(20, 40, 60, 0.25);
+    --texto: #12293d;
+    --secundario: #3c5a72;
+    --acento: #1c86e0;
+    --acento-hover: #0f6bc0;
+    --acento-brillo: #7fd0ff;
+    --sombra: 0 8px 32px rgba(15, 45, 70, 0.25);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--texto);
+    font-family: "Segoe UI", Tahoma, Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.55), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(255, 255, 255, 0.25), transparent 50%),
+        linear-gradient(160deg, var(--fondo-1), var(--fondo-2) 55%, var(--fondo-3));
+    background-attachment: fixed;
+}
+
+body.oscuro {
+    --vidrio: rgba(20, 25, 35, 0.35);
+    --vidrio-borde: rgba(255, 255, 255, 0.18);
+    --vidrio-oscuro: rgba(0, 0, 0, 0.35);
+    --texto: #eef4fa;
+    --secundario: #a9bfd2;
+    --acento: #6fc3ff;
+    --acento-hover: #93d5ff;
+    --acento-brillo: #bfe9ff;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.08), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(120, 180, 255, 0.15), transparent 50%),
+        linear-gradient(160deg, #0d1b2a, #14304a 55%, #1b3a55);
+    background-attachment: fixed;
+}
+
+button,
+a,
+input {
+    font: inherit;
+}
+
+/* --- Panel de vidrio base, reutilizado por encabezado, paneles y footer --- */
+.encabezado,
+.panel-principal,
+.panel-lateral,
+.panel-descripcion {
+    background-color: var(--vidrio);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--vidrio-borde);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        var(--sombra);
+}
+
+.pagina {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: min(1000px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 24px 0 60px;
+}
+
+/* --- Encabezado: perfil a la izquierda, controles a la derecha --- */
+.encabezado {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px 24px;
+    border-radius: 16px;
+}
+
+.encabezado-perfil {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--vidrio-borde);
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nombre {
+    margin: 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.encabezado-controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.reproductor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pista-actual {
+    font-size: 0.78rem;
+    color: var(--secundario);
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.boton {
+    padding: 9px 16px;
+    color: var(--texto);
+    background-color: var(--vidrio);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--vidrio-borde);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.boton:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 16px rgba(15, 45, 70, 0.25);
+}
+
+.boton:active {
+    transform: translateY(1px);
+}
+
+.boton-cerrar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    color: #ffffff;
+    background: linear-gradient(180deg, #ff8f7d, #e0453a 60%, #c02f26);
+    border: 1px solid #a82a20;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    line-height: 1;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(15, 45, 70, 0.3);
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.boton-cerrar:hover {
+    background: linear-gradient(180deg, #ffab9d, #e0453a 60%, #c02f26);
+}
+
+.boton-cerrar:active {
+    transform: translateY(1px);
+}
+
+/* --- Cuerpo: panel grande + panel lateral chico, como en el mapa --- */
+.cuerpo {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.panel-principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px;
+    border-radius: 20px;
+    min-height: 360px;
+}
+
+.panel-lateral {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.panel-lateral-texto {
+    margin: 0;
+    color: var(--secundario);
+    font-size: 0.9rem;
+}
+
+/* Terminal decorativa (estética Linux), guarda el easter egg "rice" */
+.terminal {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--vidrio-borde);
+    border-radius: 8px;
+    font-family: "Courier New", Consolas, monospace;
+}
+
+.terminal-prompt {
+    color: #7fffab;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.terminal-input {
+    flex: 1;
+    min-width: 0;
+    padding: 2px 4px;
+    color: #eafff0;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.85rem;
+}
+
+.terminal-input::placeholder {
+    color: rgba(234, 255, 240, 0.4);
+}
+
+.enlaces {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.enlace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 18px;
+    color: #ffffff;
+    background: linear-gradient(180deg, var(--acento-brillo), var(--acento) 55%, var(--acento-hover));
+    border: 1px solid var(--acento-hover);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(15, 45, 70, 0.3);
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.enlace:hover {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 8px 18px rgba(15, 45, 70, 0.35);
+}
+
+.enlace:active {
+    transform: translateY(1px);
+}
+
+.enlace-icono {
+    display: flex;
+    align-items: center;
+}
+
+/* --- Footer: barra ancha con la descripción --- */
+.panel-descripcion {
+    padding: 22px 28px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+.panel-descripcion p {
+    margin: 0;
+    color: var(--secundario);
+}
+
+/* --- Easter eggs --- */
+.easter-egg-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--vidrio-oscuro);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+}
+
+.easter-egg-overlay[hidden] {
+    display: none;
+}
+
+.easter-egg-tarjeta {
+    position: relative;
+    width: min(420px, 100%);
+    padding: 24px;
+    text-align: center;
+    background-color: var(--vidrio);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--vidrio-borde);
+    border-radius: 14px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), var(--sombra);
+}
+
+.easter-egg-imagen {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--vidrio-borde);
+}
+
+.easter-egg-texto {
+    margin: 14px 0 0;
+    color: var(--secundario);
+    font-size: 0.9rem;
+}
+
+.cerrar-easter-egg {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    line-height: 1;
+}
+
+/* --- Secuencia de cierre: video + kernel panic --- */
+.cierre-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    z-index: 200;
+}
+
+.cierre-overlay[hidden] {
+    display: none;
+}
+
+.cierre-overlay video {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.kernel-panic-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px max(24px, calc((100% - 900px) / 2));
+    background-color: #000000;
+    color: #d6d6d6;
+    z-index: 210;
+    cursor: default;
+}
+
+.kernel-panic-overlay[hidden] {
+    display: none;
+}
+
+.kernel-panic-overlay.se-puede-cerrar {
+    cursor: pointer;
+}
+
+.kernel-panic-texto {
+    margin: 0;
+    max-width: 900px;
+    font-family: "Courier New", Consolas, monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.kernel-panic-ayuda {
+    margin: 28px 0 0;
+    font-family: "Courier New", Consolas, monospace;
+    font-size: 0.85rem;
+    color: #7d7d7d;
+}
+
+.kernel-panic-ayuda[hidden] {
+    display: none;
+}
+
+/* ==========================================================================
+   Estilo Liquid Glass: variante más colorida y redondeada
+   ========================================================================== */
+
+body.liquido {
+    --fondo-1: #ff9de2;
+    --fondo-2: #b18cf9;
+    --fondo-3: #7fd8ff;
+    --vidrio: rgba(255, 255, 255, 0.3);
+    --vidrio-borde: rgba(255, 255, 255, 0.6);
+    --vidrio-oscuro: rgba(60, 20, 90, 0.28);
+    --texto: #2c1b40;
+    --secundario: #5f4d7d;
+    --acento: #b23bde;
+    --acento-hover: #922bb8;
+    --acento-brillo: #ffc2f5;
+    --sombra: 0 14px 42px rgba(90, 30, 130, 0.28);
+
+    background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.55), transparent 40%),
+        radial-gradient(circle at 88% 18%, rgba(255, 170, 235, 0.55), transparent 45%),
+        radial-gradient(circle at 18% 92%, rgba(130, 205, 255, 0.5), transparent 45%),
+        radial-gradient(circle at 90% 88%, rgba(190, 145, 255, 0.5), transparent 45%),
+        linear-gradient(160deg, var(--fondo-1), var(--fondo-2) 55%, var(--fondo-3));
+    background-attachment: fixed;
+}
+
+body.liquido.oscuro {
+    --vidrio: rgba(28, 16, 42, 0.42);
+    --vidrio-borde: rgba(255, 255, 255, 0.2);
+    --vidrio-oscuro: rgba(0, 0, 0, 0.4);
+    --texto: #f5eeff;
+    --secundario: #cbb9ea;
+    --acento: #e58bff;
+    --acento-hover: #f0aaff;
+    --acento-brillo: #ffdcff;
+
+    background:
+        radial-gradient(circle at 12% 12%, rgba(185, 110, 255, 0.25), transparent 45%),
+        radial-gradient(circle at 88% 18%, rgba(255, 110, 210, 0.2), transparent 45%),
+        radial-gradient(circle at 18% 92%, rgba(90, 160, 255, 0.2), transparent 45%),
+        linear-gradient(160deg, #180a26, #251239 55%, #12203a);
+    background-attachment: fixed;
+}
+
+body.liquido .encabezado,
+body.liquido .panel-principal,
+body.liquido .panel-lateral,
+body.liquido .panel-descripcion,
+body.liquido .boton,
+body.liquido .enlace,
+body.liquido .terminal,
+body.liquido .easter-egg-tarjeta {
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    backdrop-filter: blur(28px) saturate(190%);
+}
+
+body.liquido .encabezado {
+    border-radius: 999px;
+}
+
+body.liquido .panel-principal,
+body.liquido .panel-lateral,
+body.liquido .panel-descripcion,
+body.liquido .easter-egg-tarjeta {
+    border-radius: 32px;
+}
+
+body.liquido .boton,
+body.liquido .enlace {
+    border-radius: 999px;
+}
+
+body.liquido .terminal {
+    border-radius: 999px;
+    padding-left: 18px;
+}
+
+body.liquido .easter-egg-imagen {
+    border-radius: 18px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 750px) {
+    .cuerpo {
+        grid-template-columns: 1fr;
+    }
+
+    .encabezado {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .encabezado-controles {
+        justify-content: center;
+    }
+}
