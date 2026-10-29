@@ -116,14 +116,18 @@
     </div>
 
     <div id="easterEggOverlay" class="easter-egg-overlay" hidden>
-        <div class="easter-egg-tarjeta">
-            <button id="cerrarEasterEgg" class="boton secundario cerrar-easter-egg" type="button" aria-label="Cerrar">
-                ✕
-            </button>
+        <button id="cerrarEasterEgg" class="boton-salir-easter-egg" type="button" aria-label="Salir del Easter egg">
+            ✕ Salir
+        </button>
 
+        <div class="easter-egg-tarjeta">
             <img id="easterEggImagen" class="easter-egg-imagen" src="" alt="Easter egg">
 
             <p id="easterEggTexto" class="easter-egg-texto"></p>
+
+            <button id="btnSalirEasterEggAbajo" class="boton secundario boton-salir-abajo" type="button">
+                ✕ Salir
+            </button>
 
             <audio id="easterEggAudio" preload="auto"></audio>
         </div>

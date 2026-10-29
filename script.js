@@ -112,6 +112,7 @@ const easterEggImagen = document.querySelector("#easterEggImagen");
 const easterEggTexto = document.querySelector("#easterEggTexto");
 const easterEggAudio = document.querySelector("#easterEggAudio");
 const cerrarEasterEgg = document.querySelector("#cerrarEasterEgg");
+const btnSalirEasterEggAbajo = document.querySelector("#btnSalirEasterEggAbajo");
 
 const easterEggs = {
     rice: {
@@ -152,6 +153,13 @@ function mostrarEasterEgg(nombre) {
     easterEggAudio.play().catch(() => {});
 
     easterEggOverlay.hidden = false;
+
+    // Intentar activar pantalla completa nativa si el navegador lo admite
+    if (easterEggOverlay.requestFullscreen) {
+        easterEggOverlay.requestFullscreen().catch(() => {});
+    } else if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
 }
 
 function ocultarEasterEgg() {
@@ -160,6 +168,11 @@ function ocultarEasterEgg() {
     easterEggAudio.pause();
     easterEggAudio.currentTime = 0;
 
+    // Salir de pantalla completa si está activa
+    if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+    }
+
     if (musicaEstabaActivaAntesDelEgg) {
         musicaFondo.play().catch(() => {});
     }
@@ -167,8 +180,26 @@ function ocultarEasterEgg() {
 
 cerrarEasterEgg.addEventListener("click", ocultarEasterEgg);
 
+if (btnSalirEasterEggAbajo) {
+    btnSalirEasterEggAbajo.addEventListener("click", ocultarEasterEgg);
+}
+
 easterEggOverlay.addEventListener("click", evento => {
     if (evento.target === easterEggOverlay) {
+        ocultarEasterEgg();
+    }
+});
+
+// Cerrar también con tecla Escape
+document.addEventListener("keydown", evento => {
+    if (evento.key === "Escape" && !easterEggOverlay.hidden) {
+        ocultarEasterEgg();
+    }
+});
+
+// Si el usuario sale de la pantalla completa del navegador (ej. presionando Esc nativo)
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !easterEggOverlay.hidden) {
         ocultarEasterEgg();
     }
 });
